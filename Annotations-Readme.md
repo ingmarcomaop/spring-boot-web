@@ -155,10 +155,37 @@ Y luego, se utiliza en el método correspondiente así:
 model.addAttribute("titulo", textIndex);
 Lo anterior sería inyección de dependencias aplicado a texto.
 
+Lo anterior se puede hacer creando un archivo por ejemplo, texts.properties y se le ponen las variables a leer:
+text.indexcontroller.index.tolist=Hello Spring Framework
+.
+.
+Y también en el paquete donde está la app se crea una clase por ejemplo:
+@Configuration
+@PropertySources({
+    @PropertySource("classpath:texts.properties")
+    
+})
+public class TextsPropertiesConfiguration {
 
+}
+Y así tiene el mismo efecto de inyectar variables.
 
+Para redirigir a rutas de la aplicación. Se crea otro controlador:
+public class HomeController {
+    
+    @GetMapping("/")
+    public String home() {
+        
+        return "redirect:/app/index";
+    }
 
+}
 
+Otra forma es con forwad:
+return "redirect:/app/index";
+
+La diferencia entre redirect y forwad es que la primera cambia la ruta en el navegador y la segunda la mantiene.
+forwad es para rutas de controladores y se recomienda para implementar una pagina de inicio.
 
 
 
